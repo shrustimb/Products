@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background color for contrast */
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border-radius: 10px; /* Rounded corners for the card */
+            margin-top: 20px; /* Spacing above the card */
+        }
+        .btn-primary {
+            transition: background-color 0.3s; /* Smooth transition for button hover */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .card-header {
+            background-color: #007bff; /* Primary color for the header */
+            color: white; /* White text for contrast */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'product_list' %}">Product Manager</a>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h3>{{ product.name }}</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Description:</strong> {{ product.description }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <a href="{% url 'product_list' %}" class="btn btn-primary">Back to Product List</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

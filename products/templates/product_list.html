@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h2 {
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+        .list-group {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: none;
+            padding: 15px 20px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .list-group-item:hover {
+            transform: translateY(-3px);
+            background-color: #f1f1f1;
+        }
+        .product-info {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-info, .btn-danger {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
+        }
+        .btn-info:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px 0;
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Product Manager</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add_product' %}">Add Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'product_list' %}">View Products</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center">Product List</h2>
+        <div class="list-group">
+            {% for product in products %}
+            <div class="list-group-item">
+                <div class="product-info">
+                    <strong>{{ product.name }}</strong> - ${{ product.price }}
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-info">View Details</a>
+                    
+                    <!-- Delete Form for each product -->
+                    <form method="POST" action="{% url 'delete_product' product.id %}" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
